@@ -1,23 +1,25 @@
 const mongoose = require("mongoose");
 const transactionSchema = mongoose.Schema(
   {
-    name: {
+    userId: {
       type: String,
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
+    plan: {
       type: String,
       required: true,
     },
-    creditBalance: {
+    amount: {
       type: Number,
-      default: 5,
+
+      required: true,
     },
+    credits: {
+      type: Number,
+      required: true,
+    },
+    payment: { type: Boolean, default: false },
+    date: { type: Number },
   },
   { timestamps: true }
 );

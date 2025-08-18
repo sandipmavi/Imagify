@@ -1,7 +1,9 @@
 const userModel = require("../models/userModel");
+const transactionModel = require("../models/transactionModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const razorpay = require("razorpay");
+require("dotenv").config();
 
 const registerUser = async (req, res) => {
   try {
@@ -134,10 +136,23 @@ const paymentRazorpay = async (req, res) => {
       credits,
       date,
     };
+    const newTransaction = await transactionModel.create(transactionData);
+    const options = {
+      amount: amount * 100,
+      currency: process.env.CURRENCY,
+      receipt: newTransaction._id,
+    };
+    await razorpayInstance.orders.create(options, (error, order) => {
+      if (error) {
+        console.log(error);
+        return res.json(500).json({ success: false, message: error });
+      }
+      res.status(200).json({ success: true, order });
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ success: false, message: error.message });
   }
 };
 
-module.exports = { registerUser, loginUser, userCredits };
+module.exports = { registerUser, loginUser, userCredits, paymentRazorpay };
