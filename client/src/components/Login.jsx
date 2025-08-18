@@ -22,7 +22,8 @@ const Login = () => {
         });
         if (data.success) {
           setToken(data.token);
-          setUser(data?.user.name);
+          
+          setUser(data?.user);
           localStorage.setItem("token", data?.token);
           setShowLogin(false);
           toast.success("Login Successful");
@@ -37,7 +38,7 @@ const Login = () => {
         });
         if (data.success) {
           setToken(data.token);
-          setUser(data?.user.name);
+          setUser(data?.user);
           localStorage.setItem("token", data?.token);
           setShowLogin(false);
           toast.success("Account Created Successfully");

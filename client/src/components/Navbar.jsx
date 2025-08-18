@@ -24,7 +24,9 @@ const Navbar = () => {
                 Credit left : {credit}
               </p>
             </button>
-            <p className="text-gray-600 max-sm:hidden pl-4 ">Hi, {user}</p>
+            <p className="text-gray-600 max-sm:hidden pl-4 ">
+              Hi, {user ? user.name : "Sandesh"}
+            </p>
             <div className="relative group">
               <img
                 src={assets.profile_icon}
@@ -34,7 +36,7 @@ const Navbar = () => {
               <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
                 <ul className="list-none m-0 p-2 bg-white rounded-md border text-sm">
                   <li
-                    onClick={() => logout()}
+                    onClick={logout}
                     className="py-1 px-2 cursor-pointer pr-10"
                   >
                     Logout

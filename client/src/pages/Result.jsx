@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { motion } from "motion/react";
+import { AppContext } from "../context/AppContext";
+import Loader from "../components/Loader";
 
 const Result = () => {
   const [image, setImage] = useState(assets.sample_img_1);
-  const [isImageLoaded, setIsImageLoaded] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [input, setInput] = useState("");
-  const onSubmitHandler = async (e) => {};
+  const { generateImage } = useContext(AppContext);
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (input) {
+      const image = await generateImage(input);
+      if (image) setIsImageLoaded(true);
+      setImage(image);
+    }
+    setLoading(false);
+  };
   return (
     <motion.form
       initial={{ opacity: 0.2, y: 100 }}
@@ -26,7 +38,7 @@ const Result = () => {
             }`}
           />
         </div>
-        {loading && <p>Loading....</p>}
+        <div className="mt-2">{loading && <Loader />}</div>
       </div>
       {!isImageLoaded && (
         <div className="flex w-full max-w-xl bg-neutral-500 text-white text-sm p-0.5 mt-10 rounded-full">
