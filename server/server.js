@@ -5,7 +5,7 @@ const userRouter = require("./routes/userRoutes");
 const imageRouter = require("./routes/imageRoute");
 require("dotenv").config();
 
-const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4000;
 
 const app = express();
 
@@ -22,6 +22,7 @@ connectDb().then(() => {
   console.log("Database Connected");
 });
 
-app.listen(PORT, () => {
-  console.log("Server is running on PORT: 4000");
-});
+// app.listen(PORT, () => {
+//   console.log("Server is running on PORT: 4000");
+// });
+module.exports = app;
