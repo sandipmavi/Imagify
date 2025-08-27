@@ -10,6 +10,7 @@ const AppContextProvider = ({ children }) => {
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  
   const [credit, setCredit] = useState(false);
   const loadCreditData = async () => {
     try {
